@@ -82,3 +82,6 @@ https://www.youtube.com/watch?v=JMw0F8FFe80&list=PLW_uvsSPlijtSmrhajc3Y02G86lOie
 week 5. 팩토리패턴
 5-2
 
+smart pointer
+unique_ptr
+
