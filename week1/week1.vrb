@@ -1,11 +1,7 @@
-\frametitle{그 밖의 자주쓰는것}
-
+\frametitle{스터디 목표.}
     \begin{itemize}
-        \item sort
-        \item priority queue
-        \item abs : 절댓값 반환
-        \item tuple
-        \item pair
-        \item string : $\#include <string>$
+        \item 구글링 몸에 배기
+        \item Cpp 11,14...간단하게 익히기
+        \item 객체지향프로그래밍
     \end{itemize}
-
+    솔직히 어느 대학교에선 수업에서 커버 할 수 있는 수준

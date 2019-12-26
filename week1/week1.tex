@@ -5,7 +5,7 @@
 \usepackage{framed}
 \usepackage{graphicx}
 %https://www.overleaf.com/learn/latex/Inserting_Images
-
+\usepackage{color}
 \usepackage{amsmath}
 %use dfrac
 \usepackage{xcolor}
@@ -73,6 +73,14 @@ margin=.5em}]{dfn}
 
 % 병렬프로그래밍 ,네트워크는 다루지않음
 
+\begin{frame}
+    \maketitle
+\end{frame}    
+
+\begin{frame}
+    \tableofcontents
+
+\end{frame}    
 
 \section{C++ 소개}
 
@@ -112,7 +120,9 @@ margin=.5em}]{dfn}
 % \end{frame}    
 
 \begin{frame}{nullptr(c++11)}
-    \href{https://www.youtube.com/watch?v=Lt8MoQ-Rz-c&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb&index=5}{참고}
+    \href{https://www.youtube.com/watch?v=Lt8MoQ-Rz-c&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb&index=5}{
+        \textcolor{blue}{참고}
+        }
 
     $char * a = nullptr$
     
@@ -121,8 +131,8 @@ margin=.5em}]{dfn}
 \end{frame}
 
 
-\begin{frame}{Range Based For(c++11)}
-    \href{https://www.youtube.com/watch?v=sVoz36DYK5s&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb}{참고}
+\begin{frame}[fragile]{Range Based For(c++11)}
+    \href{https://www.youtube.com/watch?v=sVoz36DYK5s&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb}{\textcolor{blue}{참고}}
     
     \begin{lstlisting}[style = CStyle]
     int fibonacci[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 }; 
@@ -139,24 +149,6 @@ margin=.5em}]{dfn}
 
 \end{frame}    
 
-\begin{frame}{}
-
-
-\end{frame}    
-\begin{frame}{}
-
-
-\end{frame}    
-\begin{frame}{}
-
-
-\end{frame}    
-\begin{frame}{}[fragile] 
-
-
-\end{frame}    
-
-
 \section{study}
 
 
@@ -167,30 +159,39 @@ margin=.5em}]{dfn}
         \item Cpp 11,14...간단하게 익히기
         \item 객체지향프로그래밍
     \end{itemize}
+    솔직히 어느 대학교에선 수업에서 커버 할 수 있는 수준
 \end{frame}
 
 \begin{frame}{스터디 전체 개요}
     \begin{enumerate}
+        \item 오늘
         \item 클래스
         \item 템플릿 \& 템플릿 클래스
         \item 상속, 가상함수
+        \item 미정
     \end{enumerate}
 \end{frame}
 
 \begin{frame}{진행방식}
     인원을 확정해서 slack방 새로만들어서 모음
-        
-
 
     \begin{itemize}
+        \item 매주 월 10시
         \item code review
         \item 간단한 강의
+        \item \href{https://github.com/EeeUnS/2020CppStudy}{\textcolor{blue}{repo}}를 fork weekn/구분할수있는것/파일들로 만든후 pull request
     \end{itemize}
+
+
+
     과제를 하면서 모르겠는 부분은 구글링을 통하거나 책을 통해서 각자 습득
+
+
 \end{frame}    
 
 \begin{frame}{coding standards}
-    \url{https://github.com/popekim/dev-docs-ko/blob/master/coding-standards/cpp.md}
+    \href{https://github.com/popekim/dev-docs-ko/blob/master/coding-standards/cpp.md}{\textcolor{blue}{참고}}
+
     
     쓰지말것
     \begin{itemize}
@@ -216,3 +217,22 @@ margin=.5em}]{dfn}
 \end{frame}    
 
 \end{document}
+
+
+
+% \begin{frame}{}
+
+
+% \end{frame}    
+% \begin{frame}{}
+
+
+% \end{frame}    
+% \begin{frame}{}
+
+
+% \end{frame}    
+% \begin{frame}{}[fragile] 
+
+
+% \end{frame}    
