@@ -1,0 +1,11 @@
+\frametitle{그 밖의 자주쓰는것}
+
+    \begin{itemize}
+        \item sort
+        \item priority queue
+        \item abs : 절댓값 반환
+        \item tuple
+        \item pair
+        \item string : $\#include <string>$
+    \end{itemize}
+
