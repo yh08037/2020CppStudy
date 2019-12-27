@@ -119,15 +119,50 @@ margin=.5em}]{dfn}
 %     https://www.youtube.com/watch?v=MGVSPZoOchE&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb&index=3
 % \end{frame}    
 
-\begin{frame}{nullptr(c++11)}
-    \href{https://www.youtube.com/watch?v=Lt8MoQ-Rz-c&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb&index=5}{
-        \textcolor{blue}{참고}
-        }
+\begin{frame}[fragile]{call by ref}
+    C와의 중요한 차이점
+    \begin{lstlisting}[style = CStyle]
+        int a = 10;
+        int &a =20;
+        void function(const int &a)
+    \end{lstlisting}
+\end{frame}
 
-    $char * a = nullptr$
-    
-    기존의 NULL을 대체 NULL은 그저 매크로 상수일뿐임
-    NULL을 숫자 0으로 인식하는 문제를 대체함.
+
+
+\begin{frame}[fragile]{namespace}
+    \begin{lstlisting}[style = CStyle]
+        namespace name1
+        {
+            void function1...
+            void function2...
+            void function3...
+        }
+        namespace name2
+        {
+            void function1...
+            void function2...
+            void function3...
+        }
+        name1::function1...
+        name2::function1...
+
+        using namespace name1;
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{new delete}
+    \begin{itemize}
+        \item malloc $\rightarrow$ new type()
+        \item free $\rightarrow$ delete 
+    \end{itemize}
+    malloc은 그저 메모리 할당만을 함. new는 class의 메모리할당 처리또한 같이해주기 때문에 new사용이 필수
+    \begin{lstlisting}[style = CStyle]
+        char* n = new char[20];
+        delete[] n;
+    \end{lstlisting}
 \end{frame}
 
 
@@ -173,7 +208,7 @@ margin=.5em}]{dfn}
 \end{frame}
 
 \begin{frame}{진행방식}
-    인원을 확정해서 slack방 새로만들어서 모음
+    인원을 확정해서 slack방 새로 만들생각
 
     \begin{itemize}
         \item 매주 월 10시
