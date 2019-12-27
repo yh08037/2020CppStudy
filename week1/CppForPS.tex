@@ -96,21 +96,29 @@ margin=.5em}]{dfn}
 
 \section{namespace}
 
-\begin{frame}[fragile]{아마 달고살것..}
+
+\begin{frame}[fragile]{namespace}
     \begin{lstlisting}[style = CStyle]
-        namespace laplace
+        namespace name1
         {
-            void function(...)
-            void function2(...)
-            void function(...)
+            void function1...
+            void function2...
+            void function3...
         }
+        namespace name2
+        {
+            void function1...
+            void function2...
+            void function3...
+        }
+        name1::function1...
+        name2::function1...
 
-        laplace::function()
-
-        using namespace std;
+        using namespace name1;
     \end{lstlisting}
-    std::를 쓰는 시간이 아깝다.        
 \end{frame}
+
+
 
 \section{STL}
 
