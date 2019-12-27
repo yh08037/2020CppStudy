@@ -82,6 +82,11 @@ https://www.youtube.com/watch?v=JMw0F8FFe80&list=PLW_uvsSPlijtSmrhajc3Y02G86lOie
 week 5. 팩토리패턴
 5-2
 
+
+추가고려부분
 smart pointer
 unique_ptr
+shared_ptr
 
+메모리, 캐시  관련
+프로그램 작동 방식
