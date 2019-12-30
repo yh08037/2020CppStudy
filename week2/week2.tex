@@ -1,0 +1,190 @@
+
+\documentclass[10pt]{beamer}
+\usepackage{kotex}
+
+\usepackage{framed}
+\usepackage{graphicx}
+%https://www.overleaf.com/learn/latex/Inserting_Images
+
+\usepackage{amsmath}
+%use dfrac
+\usepackage{xcolor}
+
+\usepackage{amsthm}
+%\usepackage{tabl}
+\usepackage{listings}
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+%https://tex.stackexchange.com/questions/348651/c-code-to-add-in-the-document
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\usepackage{url}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\singlespacing\small}
+
+
+\usepackage{thmtools}
+\usepackage{xcolor}
+\declaretheoremstyle[% spaceabove=6pt,spacebelow=6pt, headfont=\color{MainColorOne}\sffamily\bfseries, notefont=\mdseries, notebraces={[}{]}, bodyfont=\normalfont,
+headpunct={},
+postheadspace=1em,
+%qed=▣,
+]{maintheorem}
+
+\declaretheorem[%
+name=정의,
+style=maintheorem,
+numberwithin=section, shaded={%bgcolor=MainColorThree!20,
+margin=.5em}]{dfn}
+% \begin{dfn}[]
+% \end{dfn}
+
+\setbeamertemplate{footline}[frame number]
+
+\usetheme{Hannover}
+
+
+\title{Class}
+
+\author{EUnS}
+
+\begin{document}
+
+
+\begin{frame}
+    \maketitle
+\end{frame}    
+
+\begin{frame}{}
+    \tableofcontents
+\end{frame}   
+
+\section{OOP}
+\begin{frame}{OOP란?}
+    \begin{itemize}
+        \item 객체 지향 프로그래밍(Object oriented proggraming)
+        \item 사실 본인도 잘모름
+        \item 어떤 물체를 클래스 설정하고 얘를 메소드(멤버 함수)로 가지고노는것.
+        \item 큰 단위의 프로젝트의 협업을 위한것(큰 코드를 다룰때) : 추상화
+        \item 그럼에도 클래스 내부를 이해하는것은 중요하다.
+    \end{itemize}
+    
+    \href{https://megayuchi.com/2017/04/15/추상화의-허상/}{\textcolor{blue}{참고1}}
+    \href{https://megayuchi.com/2017/07/10/멍청한-추상화-하지-마라/}{\textcolor{blue}{참고2}}
+
+\end{frame}    
+
+
+\section{class}
+
+\begin{frame}[fragile]{class}
+    \begin{lstlisting}[style = CStyle]
+    class name
+    {
+    public:
+        name();
+        ~name();
+        void function1();
+        void function2();
+        void function3();
+    private:
+        int memberVariable1;
+        char memberVariable2;
+        void function4();
+    };
+    void name::fuction1() {    }
+    \end{lstlisting}
+\end{frame}    
+
+\begin{frame}{용어 정리}
+    \begin{itemize}
+        \item 멤버 함수(member variable)
+        \item 메소드(method) = 멤버 함수(member function)
+        \item public : 외부에서 자유롭게 사용할수있는 것들
+        \item private : class내 public에서 접근가능
+        \item 객체 = 오브젝트(object) = 인스턴스(instance)
+        \item 캡슐화(encapsulation) : 대충 숨긴다는 뜻
+        \item 정보 은닉 : 대충 숨긴다는 뜻
+        \item protect : 상속 받은 자식에서도 접근가능
+        \item 다형성 : 상속을 통한 다양함을 나타낸다는 OOP 특징
+    \end{itemize}
+\end{frame}    
+
+\begin{frame}[fragile]{생성자 소멸자}
+    \begin{itemize}
+        \item 초기화 : 멤버 이니셜라이저
+        \item 반환값 X
+    \end{itemize}
+    
+    \begin{lstlisting}[style = CStyle]
+        name::name(int a,char b):memberVariable1(a), memberVariable2(b)
+        {
+            ;
+        }
+        name::~name()
+        {
+            delete[] something;
+        }
+    \end{lstlisting}
+\end{frame}    
+
+
+\begin{frame}{class 메모리 구조}
+    \begin{enumerate}
+        \item 변수 선언순으로 올라감.
+        \item 함수 .text 영역에
+        \item static 변수는 .BSS 영역
+    \end{enumerate}
+\end{frame}    
+
+\begin{frame}{C vs Cpp struct, class와 차이}
+    \begin{enumerate}
+        \item Cpp에서는 struct에 메소드 선언이 가능하다.
+        \item C방식으로 struct 안붙이고 뒤에 이름만 사용가능
+        \item 기본접근자가 public임 class는 private
+        \item struct는 C 스타일로만 사용
+    \end{enumerate}
+\end{frame}    
+
+
+
+\begin{frame}{과제}
+    과제 1
+    auto, using namespace std; 쓰지말것
+\end{frame}    
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}{}
+% \end{frame}    
+
+% \begin{frame}[fragile]{}
+        
+%     \begin{lstlisting}[style = CStyle]
+%     \end{lstlisting}
+% \end{frame}    
+
+
