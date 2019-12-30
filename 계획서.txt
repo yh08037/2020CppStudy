@@ -91,7 +91,8 @@ unique_ptr
 shared_ptr
 
 그외
-
+move constructor
+copy constructor
 메모리, 캐시  관련
 프로그램 작동 방식
 friend
