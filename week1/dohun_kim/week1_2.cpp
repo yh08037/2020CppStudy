@@ -11,7 +11,7 @@ class Date {
 
   public:
     Date(int, int, int);
-    bool operator < (Date &date);
+    bool operator < (Date& date);
     void print();
 };
 
@@ -22,7 +22,7 @@ Date::Date(int year, int month, int day) {
   this->day   = day;
 }
 
-bool Date::operator < (Date &date) {
+bool Date::operator < (Date& date) {
   if ( this->year == date.year ) {
     if ( this->month == date.month )
       return this->day < date.day;
@@ -47,6 +47,10 @@ void Date::print() {
 
 int main() {
 
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
+  
+
   std::vector<Date> v;
 
   v.push_back(Date(2015, 7, 18));
@@ -66,8 +70,8 @@ int main() {
   );
 
 
-  for (std::vector<Date>::iterator iter = v.begin(); iter != v.end(); iter++) 
-    iter->print();
+  for ( Date date : v )
+    date.print();
 
   return 0;
 }

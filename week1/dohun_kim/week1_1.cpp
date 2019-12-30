@@ -4,6 +4,11 @@
 
 int main() {
 
+  // for PS
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
+
+
   // empty vector container constructor
   std::vector<int> v;  
 
