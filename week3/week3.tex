@@ -1,0 +1,248 @@
+
+\documentclass[10pt]{beamer}
+\usepackage{kotex}
+
+\usepackage{framed}
+\usepackage{graphicx}
+%https://www.overleaf.com/learn/latex/Inserting_Images
+
+\usepackage{amsmath}
+%use dfrac
+\usepackage{xcolor}
+
+\usepackage{amsthm}
+%\usepackage{tabl}
+\usepackage{listings}
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+%https://tex.stackexchange.com/questions/348651/c-code-to-add-in-the-document
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\usepackage{url}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\singlespacing\small}
+
+
+\usepackage{thmtools}
+\usepackage{xcolor}
+\declaretheoremstyle[% spaceabove=6pt,spacebelow=6pt, headfont=\color{MainColorOne}\sffamily\bfseries, notefont=\mdseries, notebraces={[}{]}, bodyfont=\normalfont,
+headpunct={},
+postheadspace=1em,
+%qed=▣,
+]{maintheorem}
+
+\declaretheorem[%
+name=정의,
+style=maintheorem,
+numberwithin=section, shaded={%bgcolor=MainColorThree!20,
+margin=.5em}]{dfn}
+% \begin{dfn}[]
+% \end{dfn}
+
+\setbeamertemplate{footline}[frame number]
+
+\usetheme{Hannover}
+
+
+\title{template / linker}
+
+\author{EUnS}
+
+\begin{document}
+
+%linker
+% #include이해
+%template
+% TMP맛보기
+% 과제 3-2
+
+\begin{frame}{}
+    \maketitle
+\end{frame}    
+
+\begin{frame}{}
+    \tableofcontents
+\end{frame}   
+
+\section{linker}
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+
+\section{#include이해}
+
+\begin{frame}{header file}
+    \begin{itemize}
+        \item 그냥 텍스트파일과 같다.
+        \item 선언을 위한것...
+        \item 실제 구현은 어느 cpp파일에서...
+        \item #include로 cpp파일에 그대로 붙여넣는다.
+    \end{itemize}
+\end{frame}
+
+\section{template}
+
+\begin{frame}{template}
+    \begin{itemize}
+        \item template을 실제로 인자를 넣어서 사용할때 전처리에서 인자를 넣은 코드를 생성함
+        \item 타입 아무거나 넣어도 가능
+        \item 실행 파일크기가 예상과 다르게 커질수있음
+    \end{itemize}
+\end{frame}    
+
+
+\begin{frame}[fragile]{}
+    \begin{lstlisting}[style = CStyle]
+        template<typename T>
+        T function(T a , T* b, T& c)
+        {;}
+        template<>
+        char function<char>(char a , char* b, char &c)
+        {;}
+
+        int main()
+        {
+            function(1,0x0000,3);
+            function("s", 0x0000,"asdf");
+        }
+    \end{lstlisting}
+\end{frame}    
+
+
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+\begin{frame}{}
+\end{frame}    
+
+
+\section{TMP}
+
+\begin{frame}[fragile]{TMP}
+    
+    \begin{lstlisting}[style = CStyle]
+        
+    \end{lstlisting}
+    
+    \begin{itemize}
+        \item template의 특성을 이용해서 반복되는 계산을 컴파일타임에 계산을 해놓은다음 그 값을 $O(1)$에 부르는 흑마법
+        \item \href{https://libsora.so/posts/friday-the-13th-tmp/}{\textcolor{이런짓도 가능}
+    \end{itemize}
+    
+\end{frame}    
+
+\begin{frame}{TMP는 나쁘다}
+    \href{}{\textcolor{참고}
+    \begin{itemize}
+        \item 극암의 코드 가독성
+    \end{itemize}
+\end{frame}    
+
+
+\section{constexpr (c++11)}
+\begin{frame}{constexpr}
+    \begin{itemize}
+        \item 변수에 사용할때
+        \begin{itemize}
+            \item #define 대체가능
+            \item const 상수 대체가능
+            \item 컴파일타임에 상수로 대체
+        \end{itemize}
+        \item 함수에 사용할때
+        \begin{itemize}
+            \item 어느부분 TMP 대체가능
+        \end{itemize}
+    \end{itemize}
+\end{frame}    
+% 과제 3-2
+
+
+
+\begin{frame}{과제}
+    과제 3-2 : 링크드리스트
+\end{frame}    
+
+
+\end{document}
+
+
+% \begin{frame}{}
+% \end{frame}    
+%   \href{https://www.youtube.com/watch?v=OMiEwfmfdng&feature=youtu.be}{\textcolor{blue}
+% \begin{frame}[fragile]{}
+        
+%     \begin{lstlisting}[style = CStyle]
+    
+%     \end{lstlisting}
+
+% \end{frame}    
