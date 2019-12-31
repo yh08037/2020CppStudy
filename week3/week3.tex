@@ -86,60 +86,133 @@ margin=.5em}]{dfn}
 \end{frame}   
 
 \section{linker}
-\begin{frame}{}
-\end{frame}    
 
-\begin{frame}{}
-\end{frame}    
+\begin{frame}
+    \begin{itemize}
+        \item 서적 : CSAPP (7장 linker)
+        \item 아마 시프시간에 배울것.
+    \end{itemize}
+\end{frame}
 
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
-\end{frame}    
-
-\begin{frame}{}
+\begin{frame}{Object File}
+    
+    \begin{itemize}
+        \item Relocatable ob~ : compiler,assembler output
+        \item Executable ob~ : linker output
+        \item shared ob~ : DLL을 위한 파일 생략
+    \end{itemize}
 \end{frame}    
 
 
-\section{#include이해}
+\section{Relocatable Object Files}
+
+\begin{frame}{}
+    x86-linux : object구조로 ELF(Executable and Linkable Format)사용
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.5]{}
+        \caption{Typical ELF relocatable object file.}
+    \end{figure}
+\end{frame}    
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+    \begin{itemize}
+        \item \textbf{.text} The machine code of the compiled program.
+        
+        \item \textbf{.rodata} Read-only data such as the format strings in printf statements, and jump tables for switch statements.
+        
+        \item  \textbf{.data} Initialized global and static C variables. Local C variables are maintained at run time on the stack and do not appear in either the .data or .bss sections.
+        
+        \item \textbf{.bss} Uninitialized global and static C variables, along with any global or static variables that are initialized to zero. block satrted by symbol 의 약어
+        
+        \item \textbf{.symtab} A symbol table with information about functions and global variables that are defined and referenced in the program. 
+    
+        \item \textbf{.rel.text} A list of locations in the .text section that will need to be modified when the linker combines this object file with others. 
+        
+        \item \textbf{.rel.data} Relocation information for any global variables that are referenced or defined by the module.
+        
+        \item \textbf{.debug} A debugging symbol table with entries for local variables and typedefs defined in the program, global variables defined and referenced in the program, and the original C source file.
+        
+        \item \textbf{.line} A mapping between line numbers in the original C source program and machine code instructions in the .text section.
+        
+        \item \textbf{.strtab} A string table for the symbol tables in the .symtab and .debug sections and for the section names in the section headers.
+        
+    \end{itemize}
+\end{frame}    
+
+
+\begin{frame}{symbol}
+    \begin{itemize}
+        \item Global symbols : 모듈 m에 정의되거나 다른 모듈에 참조될 수 있는 심볼 / 전역변수와 static이아닌 함수
+        \item Global symbols : 다른 모듈에 정의된 전역변수 
+        /다른곳에 정의된 (extern)전역변수와 static이아닌 함수
+        \item Local symbols : static으로 선언된 함수,전역변수 참조 x
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{linker 단계}
+    \begin{enumerate}
+        \item symbol resolution
+        \item Relocation
+    \end{enumerate}
+\end{frame}    
+
+
+\begin{frame}{Symbol Resolution}
+    \begin{itemize}
+        \item strong symbol : 초기화된 전역변수
+        \item weak symbol : 초기화x 전역변수
+    \end{itemize}
+    \begin{enumerate}
+        \item Multiple strong symbols with the same name are not allowed.
+        \item Given a strong symbol and multiple weak symbols with the same name, choose the strong symbol.
+        \item Given multiple weak symbols with the same name, choose any of the weak symbols.
+    \end{enumerate}
+\end{frame}    
+
+\begin{frame}{Relocation}
+    \begin{enumerate}
+        \item Relocating sections and symbol definitionss :  여러개의 .data section 합친다. 이후 인스트럭션과 전역변수들이 런타임 메모리 주소를 가진다.
+        \item Relocating symbol references within sections. :모든 심볼 참조를 수정한다. 이후  
+        모든 심볼들이 런타임 메모리 주소를 가진다. 어셈블러가 만든 .rel.data section에 있는 Relocation Entries자료구조를 가지고 수행한다
+        \begin{itemize}
+            \item R_X86_64_PC32 : 상대주소
+            \item R_X86_64_32. : 절대주소
+        \end{itemize}
+    \end{enumerate}
+\end{frame}    
+
+\begin{frame}{Executable Object Files}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.5]{}
+        \caption{Typical ELF executable object file.}
+    \end{figure}
+\end{frame}    
+
+\begin{frame}{Loading}    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.5]{}
+        \caption{\textbf{Linux x86-64 run-time memory image.} 
+        Gaps due to segment alignment requirements and addressspace layout randomization (ASLR) are not shown. Not to scale}
+    \end{figure}
+    loading : 실행가능한 목적파일 내의 코드와 데이터를 메모리로 복사하고 첫번째 인스트럭션(엔트리 포인트)으로 점프해서실행하는 과정
+\end{frame}    
+
+\section{$#include$이해}
 
 \begin{frame}{header file}
     \begin{itemize}
         \item 그냥 텍스트파일과 같다.
         \item 선언을 위한것...
         \item 실제 구현은 어느 cpp파일에서...
-        \item #include로 cpp파일에 그대로 붙여넣는다.
+        \item $#include$는 전처리 지시자.
+        \item $#include$로 cpp파일에 그대로 붙여넣는다.
     \end{itemize}
 \end{frame}
 
@@ -174,6 +247,7 @@ margin=.5em}]{dfn}
 
 
 \begin{frame}{}
+
 \end{frame}    
 
 \begin{frame}{}
@@ -191,7 +265,17 @@ margin=.5em}]{dfn}
 \begin{frame}[fragile]{TMP}
     
     \begin{lstlisting}[style = CStyle]
-        
+    template <int N>
+    struct Factorial {
+        static const int result = N * Factorial<N - 1>::result;
+    };
+
+    template <>
+    struct Factorial<1> {
+        static const int result = 1;
+    };
+
+    Factorial<4>::result
     \end{lstlisting}
     
     \begin{itemize}
@@ -221,6 +305,7 @@ margin=.5em}]{dfn}
         \item 함수에 사용할때
         \begin{itemize}
             \item 어느부분 TMP 대체가능
+            \item 컴파일타임에 계산할수도있고 안할수도있음
         \end{itemize}
     \end{itemize}
 \end{frame}    
