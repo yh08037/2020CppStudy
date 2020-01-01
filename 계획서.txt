@@ -79,7 +79,8 @@ week 4. 상속, 가상함수
 
 final override
 https://www.youtube.com/watch?v=JMw0F8FFe80&list=PLW_uvsSPlijtSmrhajc3Y02G86lOieQOb&index=4
-
+업캐스팅
+다운캐스팅
 
 week 5. 팩토리패턴
 5-2
@@ -98,3 +99,11 @@ copy constructor
 friend
 operator 
 과제: operator+ -가 구현된 biginteger구현
+
+cast
+static_cast
+dynamic_cast
+const_cast
+reinterpret_cast
+
+try catch
