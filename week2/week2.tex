@@ -138,14 +138,19 @@ margin=.5em}]{dfn}
     \end{itemize}
     
     \begin{lstlisting}[style = CStyle]
-        name::name(int a,char b):memberVariable1(a), memberVariable2(b)
-        {
-            ;
-        }
-        name::~name()
-        {
-            delete[] something;
-        }
+    class name
+    {
+    public:
+        name();
+        ~name();
+        void function1();
+        void function2();
+        void function3();
+    private:
+        int memberVariable1;
+        char memberVariable2;
+        void function4();
+    };
     \end{lstlisting}
 \end{frame}    
 
@@ -168,6 +173,100 @@ margin=.5em}]{dfn}
 \end{frame}    
 
 
+\section{복사 문제}
+
+\begin{frame}[fragile]{Copy}
+    \begin{lstlisting}[style = CStyle]
+        class name
+        {
+        public:
+            name();
+            ~name();
+        private:
+            int memberVariable1;
+        };
+        name a();
+        name b = a; 
+        \end{lstlisting}
+\end{frame}    
+
+
+\begin{frame}{Copy \& move}
+    \begin{itemize}
+        \item 클래스 생성시 name에 대한 몇가지의 정의가 기본적으로 암묵적으로 되어있다.
+        \item 기본생성되는것들
+        \begin{itemize}
+            \item default constuctor
+            \item default destuctor
+            \item copy constuctor 
+            \item move constructor
+            \item copy assignment operator
+            \item move assignment operator
+        \end{itemize}
+    \end{itemize}
+\end{frame}    
+
+
+\begin{frame}[fragile]{Copy}
+    \begin{lstlisting}[style = CStyle]
+        class name
+        {
+        public:
+        private:
+            int memberVariable1;
+        };
+
+        class name
+        {
+        public:
+            name() = default;
+            ~name();
+            name(const name&);
+            name& operator=(const name&);
+            name(name&&);
+            name& operator=(name&&);
+        private:
+            int memberVariable1;
+        };
+        \end{lstlisting}
+        default copy와 move는 단순히 값을 복사하기만함.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Copy}
+    \begin{lstlisting}[style = CStyle]
+    class name
+    {
+    public:
+    name():mString = nullptr;
+    {
+        mString = new char[20];
+        ...
+    }
+    private:
+        char* mString;
+    };
+    name a;
+    name b = a;
+    \end{lstlisting}
+        주소를 한번 찾아보자.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{move (C++11)}}
+    \begin{itemize}
+        \item rvalue vs lvalue
+        \item 너무 어려워요
+        \item 필요하면 그때..
+    \end{itemize}
+    \begin{lstlisting}[style = CStyle]
+        name a ,b;
+        ...
+        name c = a*b;
+    \end{lstlisting}
+\end{frame}
 
 \begin{frame}{과제}
     과제 1
