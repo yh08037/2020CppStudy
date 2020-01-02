@@ -107,3 +107,8 @@ const_cast
 reinterpret_cast
 
 try catch
+
+
+안다룰것
+
+atomic, thread, task
