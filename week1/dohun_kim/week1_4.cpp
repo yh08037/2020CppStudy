@@ -1,23 +1,24 @@
 #include <iostream>
 #include <list>
-#include <algorithm>
 #include <random>
 #include <limits>
+#include <ctime>
 
 
 int main() {
 
   std::ios_base::sync_with_stdio(false);
   std::cin.tie(NULL);
-  
 
-  std::random_device rd;                                
-  std::mt19937 engine(rd());   
 
-  std::uniform_int_distribution<int> distribution(
-    std::numeric_limits<int>::min(), 
-    std::numeric_limits<int>::max()
-  );
+  // std::default_random_engine engine(std::random_device{}());   
+  std::default_random_engine engine((unsigned int)time(NULL));   
+
+  // std::uniform_int_distribution<int> distribution(
+  //   std::numeric_limits<int>::min(), 
+  //   std::numeric_limits<int>::max()
+  // );
+  std::uniform_int_distribution<int> distribution(0, 100);
 
 
   std::list<int> lst;
