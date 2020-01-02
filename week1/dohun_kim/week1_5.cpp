@@ -16,8 +16,8 @@ class Node {
 
 class Graph {
   private:
-    std::vector<Node> nodes;
-    std::vector<std::list<Node*>> adj;
+    std::vector<Node*> nodes;
+    std::vector<std::list<Node*>*> adj;
   public:
     void add_node(std::string name, int x, int y);
     void add_edge(int u, int v);
@@ -27,20 +27,20 @@ class Graph {
 
 
 void Graph::add_node(std::string name, int x, int y) {
-  nodes.push_back(*(new Node(name, x, y)));
-  adj.push_back(*(new std::list<Node*>));
+  nodes.push_back(new Node(name, x, y));
+  adj.push_back(new std::list<Node*>);
 }
 
 void Graph::add_edge(int u, int v) {
-  adj[u].push_back(&nodes[v]);
-  adj[v].push_back(&nodes[u]);
+  adj[u]->push_back(nodes[v]);
+  adj[v]->push_back(nodes[u]);
 }
 
 void Graph::print_graph() {
   for ( int i = 0; i < nodes.size(); i++ ) {
-    nodes[i].print();
+    nodes[i]->print();
     std::cout << "  ->  ";
-    for (Node* item : adj[i]) {
+    for (Node* item : *adj[i]) {
       item->print();
       std::cout << "   ";
     }
@@ -49,10 +49,10 @@ void Graph::print_graph() {
 }
 
 Graph::~Graph() {
-  // for ( int i = 0; i < nodes.size(); i++ ) {
-  //   delete &nodes[i];
-  //   delete &adj[i];
-  // }
+  for ( int i = 0; i < nodes.size(); i++ ) {
+    delete nodes[i];
+    delete adj[i];
+  }
 }
 
 
