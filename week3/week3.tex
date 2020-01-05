@@ -154,9 +154,16 @@ margin=.5em}]{dfn}
         \item Global symbols : 모듈 m에 정의되거나 다른 모듈에 참조될 수 있는 심볼 / 전역변수와 static이아닌 함수
         \item Global symbols : 다른 모듈에 정의된 전역변수 
         /다른곳에 정의된 (extern)전역변수와 static이아닌 함수
-        \item Local symbols : static으로 선언된 함수,전역변수 참조 x
+        \item Local symbols : static으로 선언된 함수, static 전역변수
     \end{itemize}
 \end{frame}
+
+\begin{frame}
+    Q : 지역 변수는요?
+
+    A : 런타임에 스택에 쌓습니다.
+\end{frame}
+
 
 \subsection{linker}
 \begin{frame}{linker 단계}
@@ -169,7 +176,7 @@ margin=.5em}]{dfn}
 
 \begin{frame}{Symbol Resolution}
     \begin{itemize}
-        \item strong symbol : 초기화된 전역변수
+        \item strong symbol : 초기화된 전역변수, 함수
         \item weak symbol : 초기화x 전역변수
     \end{itemize}
     Rule
@@ -182,13 +189,14 @@ margin=.5em}]{dfn}
 
 \begin{frame}{Relocation}
     \begin{enumerate}
-        \item Relocating sections and symbol definitionss :  여러개의 .data section을 합친다. 이후 인스트럭션과 전역변수들이 런타임 메모리 주소를 가진다.
+        \item Relocating sections and symbol definitionss :  여러개의 .data section을 합친다.
         \item Relocating symbol references within sections. :모든 심볼 참조를 수정한다. 이후  
         모든 심볼들이 런타임 메모리 주소를 가진다. 어셈블러가 만든 .rel.data section에 있는 Relocation Entries자료구조를 가지고 수행한다
         \begin{itemize}
             \item R\_X86\_64\_PC32 : 상대주소
             \item R\_X86\_64\_32. : 절대주소
         \end{itemize}
+         이후 인스트럭션과 전역변수들이 런타임 메모리 주소를 가진다.
     \end{enumerate}
 \end{frame} 
 
