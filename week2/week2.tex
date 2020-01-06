@@ -89,10 +89,6 @@ margin=.5em}]{dfn}
         \item 큰 단위의 프로젝트의 협업을 위한것(큰 코드를 다룰때) : 추상화
         \item 그럼에도 클래스 내부를 이해하는것은 중요하다.
     \end{itemize}
-    
-    \href{https://megayuchi.com/2017/04/15/추상화의-허상/}{\textcolor{blue}{참고1}}
-    \href{https://megayuchi.com/2017/07/10/멍청한-추상화-하지-마라/}{\textcolor{blue}{참고2}}
-
 \end{frame}    
 
 
@@ -123,13 +119,15 @@ margin=.5em}]{dfn}
         \item 메소드(method) = 멤버 함수(member function)
         \item public : 외부에서 자유롭게 사용할수있는 것들
         \item private : class내 public에서 접근가능
-        \item 객체 = 오브젝트(object) = 인스턴스(instance)
-        \item 캡슐화(encapsulation) : 대충 숨긴다는 뜻
-        \item 정보 은닉 : 대충 숨긴다는 뜻
+        \item 객체 = 오브젝트(object) = 인스턴스(instance) : 데이터 할당된 class를 지칭
+        \item 캡슐화(encapsulation) : 대충 내부구현을 숨긴다는 뜻
+        \item 정보 은닉 : 불필요한 class 멤버 접근을 제한하는것 private으로 넣는다.
+        \item 추상화 : 실제 구현을 감싸는것.
         \item protect : 상속 받은 자식에서도 접근가능
         \item 다형성 : 상속을 통한 다양함을 나타낸다는 OOP 특징
+        \item 오버라이딩 : 같은 이름의 메소드를 상속 받는것
     \end{itemize}
-\end{frame}    
+\end{frame}
 
 \begin{frame}[fragile]{생성자 소멸자}
     \begin{itemize}
@@ -141,39 +139,76 @@ margin=.5em}]{dfn}
     class name
     {
     public:
-        name();
+        name() : memberVariable1(0), memberVariable2('a'){;}
         ~name();
-        void function1();
-        void function2();
-        void function3();
     private:
         int memberVariable1;
         char memberVariable2;
-        void function4();
+        static int n = 0 ;
     };
     \end{lstlisting}
 \end{frame}    
 
 
-\begin{frame}{class 메모리 구조}
-    \begin{enumerate}
-        \item 변수 선언순으로 올라감.
-        \item 함수 .text 영역에
-        \item static 변수는 .BSS 영역
-    \end{enumerate}
-\end{frame}    
+
 
 \begin{frame}{C vs Cpp struct, class와 차이}
     \begin{enumerate}
         \item Cpp에서는 struct에 메소드 선언이 가능하다.
         \item C방식으로 struct 안붙이고 뒤에 이름만 사용가능
         \item 기본접근자가 public임 class는 private
-        \item struct는 C 스타일로만 사용
+        \item Coding standard : struct는 C 스타일로만 사용
     \end{enumerate}
 \end{frame}    
 
 
-\section{복사 문제}
+\section{operator}
+
+
+\begin{frame}[fragile]{operator}
+    \begin{enumerate}
+        \item class의 연산을 일일이 지정해줘야됨
+        \item \href{https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B}{\textcolor{blue}{참고}}
+        여기에서보고 필요한거 만들어씀
+        
+
+    \end{enumerate}
+
+
+    \begin{lstlisting}[style = CStyle]
+    class vector
+    {
+    public:
+        vector operator+(const vector& b);
+    private:
+        int x, y;
+    };
+
+    vector vector::operator+(const vector& b)
+    {
+        vector c;
+        c.x = b.x + x;
+        c.y = b.y + y;
+        return c;
+    }
+    \end{lstlisting}
+    
+\end{frame}    
+
+
+\section{memory}
+
+\begin{frame}{class 메모리 구조}
+    \begin{enumerate}
+        \item 변수 선언순으로 올라감.
+        \item 함수 .text 영역에
+        \item static 변수는 .BSS 영역
+        \item 바이트 패딩 일어남
+    \end{enumerate}
+\end{frame}    
+
+
+\section{Copy}
 
 \begin{frame}[fragile]{Copy}
     \begin{lstlisting}[style = CStyle]
@@ -193,7 +228,7 @@ margin=.5em}]{dfn}
 
 \begin{frame}{Copy \& move}
     \begin{itemize}
-        \item 클래스 생성시 name에 대한 몇가지의 정의가 기본적으로 암묵적으로 되어있다.
+        \item 클래스 생성시 몇가지 정의가 자동으로 생성된다.
         \item 기본생성되는것들
         \begin{itemize}
             \item default constuctor
@@ -203,6 +238,7 @@ margin=.5em}]{dfn}
             \item copy assignment operator
             \item move assignment operator
         \end{itemize}
+        \item $=default, =delete$ 로 명시할수있다.
     \end{itemize}
 \end{frame}    
 
@@ -220,11 +256,11 @@ margin=.5em}]{dfn}
         {
         public:
             name() = default;
-            ~name();
-            name(const name&);
-            name& operator=(const name&);
-            name(name&&);
-            name& operator=(name&&);
+            ~name() = default;
+            name(const name&) = default;
+            name& operator=(const name&) = default;
+            name(name&&) = default;
+            name& operator=(name&&) = default;
         private:
             int memberVariable1;
         };
@@ -250,12 +286,12 @@ margin=.5em}]{dfn}
     name a;
     name b = a;
     \end{lstlisting}
-        주소를 한번 찾아보자.
+    주소를 한번 찾아보자.
 \end{frame}
 
 
 
-\begin{frame}[fragile]{move (C++11)}}
+\begin{frame}[fragile] {move (C++11)}
     \begin{itemize}
         \item rvalue vs lvalue
         \item 너무 어려워요
@@ -270,11 +306,13 @@ margin=.5em}]{dfn}
 
 \begin{frame}{과제}
     과제 1
+    
     auto, using namespace std; 쓰지말것
 \end{frame}    
 
 
 \end{document}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \begin{frame}{}
