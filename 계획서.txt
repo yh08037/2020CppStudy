@@ -112,3 +112,11 @@ try catch
 안다룰것
 
 atomic, thread, task
+
+
+참고서적 
+
+C++ 기초플러스
+effective c++
+modern effective c++
+csapp
