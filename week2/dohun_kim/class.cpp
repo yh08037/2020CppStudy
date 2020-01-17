@@ -22,21 +22,29 @@ void Car::SetPrice(int price)
 
 CarManager::CarManager(std::string fileName)
 {
-  std::string brand;
-  std::string model;
-  int price;
+  std::ifstream input_file(fileName);
 
-  std::ifstream in;
-
-  in.open(fileName);
-
-  while (true)
+  if (input_file.is_open())
   {
-    in >> brand >> model >> price;
-    if (in.eof())
-      break;
+    std::string brand;
+    std::string model;
+    int price;
 
-    carList.push_back(Car(brand, model, price));
+    while (true)
+    {
+      input_file >> brand >> model >> price;
+
+      if (input_file.eof())
+        break;
+
+      carList.push_back(Car(brand, model, price));
+    }
+
+    input_file.close();
+  }
+  else
+  {
+    std::cout << "file does not exist\n";
   }
 }
 
@@ -45,7 +53,7 @@ void CarManager::Menu()
   while (true)
   {
     int input;
-    
+
     std::cout << "Car Manager Menu\n"
               << "1. Print Car List\n"
               << "2. Find Car Info\n"
@@ -126,7 +134,7 @@ void CarManager::FindCarInfo(std::string brand, std::string model)
   else
   {
     std::cout << "FindCarInfo failed\n";
-  }  
+  }
 }
 
 void CarManager::ChangePrice(std::string brand, std::string model, int price)
@@ -142,7 +150,7 @@ void CarManager::ChangePrice(std::string brand, std::string model, int price)
     iter->SetPrice(price);
     std::cout << "Price Changed\n";
   }
-  else 
+  else
   {
     std::cout << "ChangePrice failed\n";
   }
@@ -160,4 +168,20 @@ void CarManager::SortCarList()
 
 void CarManager::SaveChanges()
 {
+  std::ofstream output_file(fileName);
+
+  if (output_file.is_open())
+  {
+    for (Car const &car : carList)
+    {
+      output_file << car.GetBrand() << " "
+                  << car.GetModel() << " "
+                  << car.GetPrice() << "\n";
+    }
+    output_file.close();
+  }
+  else
+  {
+    std::cout << "file open failed.\n";
+  }
 }
