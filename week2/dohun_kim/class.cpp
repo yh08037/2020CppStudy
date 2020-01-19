@@ -20,9 +20,11 @@ void Car::SetPrice(int price)
   this->price = price;
 }
 
-CarManager::CarManager(std::string fileName)
+CarManager::CarManager(std::string f)
 {
-  std::ifstream input_file(fileName);
+  fileName = f;
+
+  std::ifstream input_file(f);
 
   if (input_file.is_open())
   {
@@ -39,13 +41,13 @@ CarManager::CarManager(std::string fileName)
 
       carList.push_back(Car(brand, model, price));
     }
-
-    input_file.close();
   }
   else
   {
     std::cout << "file does not exist\n";
   }
+  
+  input_file.close();
 }
 
 void CarManager::Menu()
@@ -169,7 +171,7 @@ void CarManager::SortCarList()
 void CarManager::SaveChanges()
 {
   std::ofstream output_file(fileName);
-
+  
   if (output_file.is_open())
   {
     for (Car const &car : carList)
@@ -178,10 +180,11 @@ void CarManager::SaveChanges()
                   << car.GetModel() << " "
                   << car.GetPrice() << "\n";
     }
-    output_file.close();
   }
   else
   {
     std::cout << "file open failed.\n";
   }
+  
+  output_file.close();
 }
